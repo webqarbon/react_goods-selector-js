@@ -18,6 +18,18 @@ export const goods = [
 export const App = () => {
   const [selectedGood, setSelectedGood] = useState('Jam');
 
+  const handleClear = () => {
+    setSelectedGood('');
+  };
+
+  const handleSelect = good => {
+    setSelectedGood(good);
+  };
+
+  const handleRemove = () => {
+    setSelectedGood('');
+  };
+
   return (
     <main className="section container">
       <h1 className="title is-flex is-align-items-center">
@@ -28,7 +40,7 @@ export const App = () => {
               data-cy="ClearButton"
               type="button"
               className="delete ml-3"
-              onClick={() => setSelectedGood('')}
+              onClick={handleClear}
             />
           </>
         ) : (
@@ -47,31 +59,25 @@ export const App = () => {
               }
             >
               <td>
-                {(() => {
-                  if (good === selectedGood) {
-                    return (
-                      <button
-                        data-cy="RemoveButton"
-                        type="button"
-                        className="button is-info"
-                        onClick={() => setSelectedGood('')}
-                      >
-                        -
-                      </button>
-                    );
-                  }
-
-                  return (
-                    <button
-                      data-cy="AddButton"
-                      type="button"
-                      className="button"
-                      onClick={() => setSelectedGood(good)}
-                    >
-                      +
-                    </button>
-                  );
-                })()}
+                {good === selectedGood ? (
+                  <button
+                    data-cy="RemoveButton"
+                    type="button"
+                    className="button is-info"
+                    onClick={handleRemove}
+                  >
+                    -
+                  </button>
+                ) : (
+                  <button
+                    data-cy="AddButton"
+                    type="button"
+                    className="button"
+                    onClick={() => handleSelect(good)}
+                  >
+                    +
+                  </button>
+                )}
               </td>
               <td data-cy="GoodTitle" className="is-vcentered">
                 {good}
