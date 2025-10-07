@@ -50,40 +50,48 @@ export const App = () => {
 
       <table className="table">
         <tbody>
-          {goods.map(good => (
-            <tr
-              key={good}
-              data-cy="Good"
-              className={
-                good === selectedGood ? 'has-background-success-light' : ''
-              }
-            >
-              <td>
-                {good === selectedGood ? (
-                  <button
-                    data-cy="RemoveButton"
-                    type="button"
-                    className="button is-info"
-                    onClick={handleRemove}
-                  >
-                    -
-                  </button>
-                ) : (
-                  <button
-                    data-cy="AddButton"
-                    type="button"
-                    className="button"
-                    onClick={() => handleSelect(good)}
-                  >
-                    +
-                  </button>
-                )}
-              </td>
-              <td data-cy="GoodTitle" className="is-vcentered">
-                {good}
-              </td>
-            </tr>
-          ))}
+          {goods.map(good => {
+            let button;
+
+            if (good === selectedGood) {
+              button = (
+                <button
+                  data-cy="RemoveButton"
+                  type="button"
+                  className="button is-info"
+                  onClick={handleRemove}
+                >
+                  -
+                </button>
+              );
+            } else {
+              button = (
+                <button
+                  data-cy="AddButton"
+                  type="button"
+                  className="button"
+                  onClick={() => handleSelect(good)}
+                >
+                  +
+                </button>
+              );
+            }
+
+            return (
+              <tr
+                key={good}
+                data-cy="Good"
+                className={
+                  good === selectedGood ? 'has-background-success-light' : ''
+                }
+              >
+                <td>{button}</td>
+                <td data-cy="GoodTitle" className="is-vcentered">
+                  {good}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </main>
